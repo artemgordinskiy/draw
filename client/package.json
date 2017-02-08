@@ -22,6 +22,7 @@
   },
   "dependencies": {
     "normalize.css": "^5.0.0",
-    "paper": "^0.10.2"
+    "paper": "^0.10.2",
+    "phoenix": "^1.2.1"
   }
 }
