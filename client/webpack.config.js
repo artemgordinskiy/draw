@@ -1,8 +1,8 @@
 module.exports = {
-  entry: './src/main.js',
+  entry: `${__dirname}/src/index.js`,
   output: {
     filename: 'bundle.js',
-    path: './dist',
+    path: `${__dirname}/dist`,
   },
   module: {
     // preLoaders: [{
@@ -13,7 +13,7 @@ module.exports = {
     loaders: [{
       test: /\.js$/,
       exclude: /(\.test.js$|node_modules)/,
-      loaders: ['babel'],
+      loaders: ['babel-loader'],
     }, {
       test: /\.html$/,
       loader: 'raw',
