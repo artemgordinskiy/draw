@@ -7,18 +7,21 @@
   "private": true,
   "devDependencies": {
     "babel-core": "^6.22.1",
+    "babel-loader": "^6.2.10",
     "babel-plugin-transform-object-rest-spread": "^6.22.0",
     "babel-plugin-transform-runtime": "^6.22.0",
     "babel-preset-latest": "^6.22.0",
+    "css-loader": "^0.26.1",
+    "style-loader": "^0.13.1",
     "webpack": "^2.2.1",
-    "webpack-dev-server": "^2.3.0",
-    "babel-loader": "^6.2.10"
+    "webpack-dev-server": "^2.3.0"
   },
   "scripts": {
     "build": "webpack",
     "start": "webpack-dev-server"
   },
   "dependencies": {
+    "normalize.css": "^5.0.0",
     "paper": "^0.10.2"
   }
 }
