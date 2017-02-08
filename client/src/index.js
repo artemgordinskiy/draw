@@ -9,23 +9,25 @@ function initCanvas (channel) {
 
   paper.setup(canvas)
   paper.view.onMouseDown = event => {
-    myPath = new Path()
-    myPath.strokeColor = 'black'
+    myPath = new Path({ strokeColor: 'black' })
   }
   paper.view.onMouseDrag = event => {
+    console.log(event.point)
     myPath.add(event.point)
     channel.push('point:updated', { ...event.point, color: 'black' })
   }
+  channel.on('point:updated', data => {
+    const path = new paper.Path({ strokeColor: 'black' })
+    const point = new Point(data)
+    path.add(point)
+  })
 }
 
-const params = { user: Date.now() }
-const socket = new Socket('ws://192.168.2.5:4000/socket', { params })
+const user = Date.now()
+const socket = new Socket('ws://192.168.2.5:4000/socket', { params: { user } })
 
 socket.connect()
 const channel = socket.channel('draw:fake_uuid')
-channel.on('point:updated', point => {
-  console.log(point)
-})
 channel.join()
   .receive('ok', res => {
     console.log('Joined', res)
