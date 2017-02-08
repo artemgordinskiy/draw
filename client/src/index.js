@@ -1,5 +1,6 @@
 import { Socket } from 'phoenix'
 import { default as paper, view, Path, Point } from 'paper'
+
 import './main.css'
 
 function initCanvas (channel) {
@@ -17,13 +18,13 @@ function initCanvas (channel) {
   }
 }
 
-const params = { user: 1 }
+const params = { user: Date.now() }
 const socket = new Socket('ws://192.168.2.5:4000/socket', { params })
 
 socket.connect()
 const channel = socket.channel('draw:fake_uuid')
-channel.on('point:updated', payload => {
-  console.log(payload.body)
+channel.on('point:updated', point => {
+  console.log(point)
 })
 channel.join()
   .receive('ok', res => {
