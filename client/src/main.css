@@ -1,0 +1,8 @@
+@import url(~normalize.css/normalize.css);
+
+canvas[data-canvas] {
+  border: 1px solid red;
+  box-sizing: border-box;
+  height: 100vh;
+  width: 100vw;
+}
