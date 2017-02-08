@@ -4,5 +4,12 @@
   "main": "index.js",
   "author": "Emanuele Marchi <emanuele@lostcrew.it>",
   "license": "MIT",
-  "private": true
+  "private": true,
+  "devDependencies": {
+    "babel-core": "^6.22.1",
+    "babel-plugin-transform-object-rest-spread": "^6.22.0",
+    "babel-plugin-transform-runtime": "^6.22.0",
+    "babel-preset-latest": "^6.22.0",
+    "webpack": "^2.2.1"
+  }
 }
