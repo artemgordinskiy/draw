@@ -28,10 +28,20 @@ defmodule Draw.MainChannel do
 
   def handle_info(:after_join, socket) do
     push socket, "presence_state", Presence.list(socket)
+
     Presence.track(socket, socket.assigns.user, %{
       online_at: :os.system_time(:milli_seconds)
     })
 
+    {:noreply, socket}
+  end
+
+ intercept ["point:updated"]
+
+  def handle_out("point:updated", message, socket) do
+    unless socket.assigns[:user] == message.user do
+      push socket, "point:updated", message
+    end
     {:noreply, socket}
   end
 end
