@@ -3,6 +3,8 @@ defmodule Draw.DrawingTest do
 
   alias Draw.{Repo, Drawing}
 
+  import Ecto.Query, only: [from: 2]
+
   @valid_attrs %{name: "Mona Lisa"}
   @invalid_attrs %{}
 
@@ -19,5 +21,13 @@ defmodule Draw.DrawingTest do
   test "inserting a drawing into the database" do
     Drawing.changeset(%Drawing{}, @valid_attrs)
     |> Repo.insert!
+  end
+
+  test "retrieving a drawing from the database" do
+    drawing = Drawing.changeset(%Drawing{}, @valid_attrs)
+    |> Repo.insert!
+
+    refute Repo.all(from d in Drawing, where: d.id == ^drawing.id)
+    |> Enum.empty?
   end
 end
