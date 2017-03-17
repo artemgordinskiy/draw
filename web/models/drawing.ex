@@ -16,5 +16,6 @@ defmodule Draw.Drawing do
     struct
     |> cast(params, [:name])
     |> validate_required([:name])
+    |> unique_constraint(:id, name: :drawings_pkey)
   end
 end
