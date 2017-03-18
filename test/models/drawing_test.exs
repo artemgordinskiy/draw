@@ -4,6 +4,7 @@ defmodule Draw.DrawingTest do
   alias Draw.{Repo, Drawing}
 
   import Ecto.Query, only: [from: 2]
+  import Ecto.Changeset, only: [change: 2]
 
   @valid_attrs %{name: "Mona Lisa"}
   @invalid_attrs %{}
@@ -29,5 +30,20 @@ defmodule Draw.DrawingTest do
 
     refute Repo.all(from d in Drawing, where: d.id == ^drawing.id)
     |> Enum.empty?
+  end
+
+  test "updating an existing drawing" do
+    drawing = Drawing.changeset(%Drawing{}, @valid_attrs)
+    |> Repo.insert!
+
+    assert {:ok, _} = change(drawing, name: "Schmona Lisa")
+    |> Repo.update
+  end
+
+  test "deleting an existing drawing" do
+    drawing = Drawing.changeset(%Drawing{}, @valid_attrs)
+    |> Repo.insert!
+
+    assert {:ok, _} = Repo.delete(drawing)
   end
 end
