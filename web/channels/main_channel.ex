@@ -36,8 +36,11 @@ defmodule Draw.MainChannel do
     {:noreply, socket}
   end
 
- intercept ["point:updated"]
+  intercept ["point:updated"]
 
+  @doc """
+  Prevent point update events going out to the same user who made them.
+  """
   def handle_out("point:updated", message, socket) do
     unless socket.assigns[:user] == message.user do
       push socket, "point:updated", message
