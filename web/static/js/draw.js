@@ -5,7 +5,7 @@ class Draw {
 
   initialize () {
     this.socket = new Socket('/socket', {
-      params: {user: 'user' + Math.floor(Math.random() * 999)}}
+      params: {}}
     );
 
     this.socket.connect();

@@ -22,6 +22,12 @@ defmodule Draw.UserSocket do
     {:ok, assign(socket, :user, user)}
   end
 
+  def connect(%{}, socket) do
+    user = Ecto.UUID.generate()
+
+    {:ok, assign(socket, :user, user)}
+  end
+
   def connect(_params, _socket) do
     :error
   end
