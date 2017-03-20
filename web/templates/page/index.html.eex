@@ -1,0 +1,9 @@
+<%= form_for @changeset, @action, fn f -> %>
+
+  <div class="form-group">
+    <label>
+      Name: <%= text_input f, :name, class: "form-control" %>
+    </label>
+  </div>
+  <%= submit "Create", class: "btn btn-primary" %>
+<% end %>
