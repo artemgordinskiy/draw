@@ -1,14 +1,17 @@
 defmodule Draw.MainChannel do
   use Phoenix.Channel
-  alias Draw.Presence
+  alias Draw.{Presence, Drawing, Repo}
 
-  def join("draw:fake_uuid", _params, socket) do
+  def join("draw:" <> drawing_id, _params, socket) do
+    drawing = Draw.Repo.get!(Drawing, drawing_id)
+    socket = assign(socket, :drawing_id, drawing.id)
+
     send self(), :after_join
 
     {:ok, socket}
   end
 
-  def join("draw:" <> _private_room_id, _params, _socket) do
+  def join(_, _params, _socket) do
     {:error, %{reason: "unauthorized"}}
   end
 
