@@ -1,0 +1,6 @@
+<h2 class="text-center"><%= @drawing.name %></h2>
+
+<canvas data-canvas></canvas>
+
+<script>window.DRAW_CONFIG = { drawing_id: "<%= @drawing.id %>" }</script>
+<script src="<%= static_path(@conn, "/dist/app.js") %>"></script>

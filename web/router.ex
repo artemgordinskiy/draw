@@ -17,6 +17,9 @@ defmodule Draw.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
+
+    get "/drawing/:id", DrawingController, :index
+
     post "/drawing/new", NewDrawingController, :index
   end
 
