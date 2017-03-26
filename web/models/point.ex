@@ -1,13 +1,15 @@
 defmodule Draw.Point do
   use Draw.Web, :model
 
+  alias Draw.Drawing
+
   @primary_key false
 
   schema "points" do
     field :x, :integer, primary_key: true
     field :y, :integer, primary_key: true
     field :color, :string
-    belongs_to :drawing, Draw.Drawing, type: :binary_id, primary_key: true
+    belongs_to :drawing, Drawing, type: :binary_id, primary_key: true
 
     timestamps()
   end
