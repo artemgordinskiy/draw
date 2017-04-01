@@ -15,20 +15,6 @@ defmodule Draw.MainChannel do
     {:error, %{reason: "unauthorized"}}
   end
 
-  def handle_in("point:updated", point, socket) do
-    IO.inspect(point)
-
-    broadcast! socket, "point:updated", %{
-      user: socket.assigns.user,
-      x: point["x"],
-      y: point["y"],
-      color: point["color"],
-      timestamp: :os.system_time(:milli_seconds)
-    }
-
-    {:noreply, socket}
-  end
-
   def handle_info(:after_join, socket) do
     push socket, "presence_state", Presence.list(socket)
 
@@ -39,15 +25,51 @@ defmodule Draw.MainChannel do
     {:noreply, socket}
   end
 
-  intercept ["point:updated"]
+  def handle_in("path:started", data, socket) do
+    broadcast! socket, "path:started", %{
+      user: socket.assigns.user,
+      x: data["x"],
+      y: data["y"],
+      color: data["color"],
+      timestamp: :os.system_time(:milli_seconds)
+    }
+
+    {:noreply, socket}
+  end
+
+  def handle_in("path:ended", data, socket) do
+    broadcast! socket, "path:ended", %{
+      user: socket.assigns.user,
+      x: data["x"],
+      y: data["y"],
+      timestamp: :os.system_time(:milli_seconds)
+    }
+
+    {:noreply, socket}
+  end
+
+  def handle_in("path:point-added", data, socket) do
+    broadcast! socket, "path:point-added", %{
+      user: socket.assigns.user,
+      x: data["x"],
+      y: data["y"],
+      path: data["path"],
+      timestamp: :os.system_time(:milli_seconds)
+    }
+
+    {:noreply, socket}
+  end
+
+  intercept ["path:started", "path:point-added", "path:ended"]
 
   @doc """
   Prevent point update events going out to the same user who made them.
   """
-  def handle_out("point:updated", message, socket) do
+  def handle_out(name, message, socket) do
     unless socket.assigns[:user] == message.user do
-      push socket, "point:updated", message
+      push socket, name, message
     end
+
     {:noreply, socket}
   end
 end
