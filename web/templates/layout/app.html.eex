@@ -12,19 +12,23 @@
   </head>
 
   <body>
-    <nav class="navbar navbar-toggleable-sm navbar-inverse bg-primary mb-3">
+    <nav class="navbar navbar-toggleable-md navbar-inverse bg-primary mb-3">
       <div class="container">
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler navbar-toggler-right" type="button"
+              data-toggle="collapse" data-target="#navbar_main"
+              aria-controls="navbar_main" aria-expanded="false"
+              aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <%= link "Draw", to: page_path(@conn, :index), class: "navbar-brand" %>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav ml-auto">
-            <!--<li><a href="/" class="nav-link">Button</a></li>-->
+        <div class="collapse navbar-collapse" id="navbar_main">
+          <ul class="navbar-nav mr-auto">
+            <%= active_link(@conn, "New drawing", to: "/new-drawing") %>
           </ul>
         </div>
       </div>
     </nav>
+
     <div class="container">
       <%= show_flash(@conn) %>
       <main role="main">

@@ -1,6 +1,8 @@
 defmodule Draw.LayoutView do
   use Draw.Web, :view
 
+  import PhoenixActiveLink
+
   defp render_flash(type, message) do
     ~E"""
     <div class="alert alert-<%= type %>" role="alert">
