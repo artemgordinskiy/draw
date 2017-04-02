@@ -1,0 +1,7 @@
+<%= if not Enum.empty?(@drawings) do %>
+  <h4>Last 10 drawings</h4>
+  <%= for drawing <- @drawings do %>
+    <a href="/drawing/<%= drawing.id %>"><%= drawing.name %></a>
+    <br />
+  <% end %>
+<% end %>
