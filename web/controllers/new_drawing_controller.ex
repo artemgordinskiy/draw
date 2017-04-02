@@ -11,7 +11,7 @@ defmodule Draw.NewDrawingController do
         conn
         |> put_flash(:info, "Drawing created successfully")
         |> redirect(to: "/drawing/" <> drawing.id)
-      {:error, changeset} ->
+      {:error, _} ->
         conn
         |> put_flash(:error, "Error creating a drawing")
         |> redirect(to: "/")

@@ -3,7 +3,7 @@ defmodule Draw.MainChannel do
   alias Draw.{Presence, Drawing, Repo}
 
   def join("draw:" <> drawing_id, _params, socket) do
-    drawing = Draw.Repo.get!(Drawing, drawing_id)
+    drawing = Repo.get!(Drawing, drawing_id)
     socket = assign(socket, :drawing_id, drawing.id)
 
     send self(), :after_join
