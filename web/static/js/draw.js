@@ -68,7 +68,8 @@ class Draw {
            path: {
              x: path_starting_point._x,
              y: path_starting_point._y,
-           }
+           },
+          color: this.current_color
         }
       )
     };
@@ -85,7 +86,9 @@ class Draw {
       let path = this.getRemotePath(data.path.x, data.path.y);
 
       if (!path) {
-        throw new Error('Remote path for received update does not exist');
+        // Create a new remote path in case we joined mid-stroke.
+        path = new Path({ strokeColor: data.color });
+        this.addRemotePath(data.path.x, data.path.y, path);
       }
 
       let point = new Point(data.x, data.y);

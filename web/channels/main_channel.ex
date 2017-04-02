@@ -25,37 +25,26 @@ defmodule Draw.MainChannel do
     {:noreply, socket}
   end
 
-  def handle_in("path:started", data, socket) do
-    broadcast! socket, "path:started", %{
-      user: socket.assigns.user,
-      x: data["x"],
-      y: data["y"],
-      color: data["color"],
-      timestamp: :os.system_time(:milli_seconds)
-    }
+  def handle_in("path:started", payload, socket) do
+    payload = add_broadcast_meta(payload, socket)
+
+    broadcast! socket, "path:started", payload
 
     {:noreply, socket}
   end
 
-  def handle_in("path:ended", data, socket) do
-    broadcast! socket, "path:ended", %{
-      user: socket.assigns.user,
-      x: data["x"],
-      y: data["y"],
-      timestamp: :os.system_time(:milli_seconds)
-    }
+  def handle_in("path:ended", payload, socket) do
+    payload = add_broadcast_meta(payload, socket)
+
+    broadcast! socket, "path:ended", payload
 
     {:noreply, socket}
   end
 
-  def handle_in("path:point-added", data, socket) do
-    broadcast! socket, "path:point-added", %{
-      user: socket.assigns.user,
-      x: data["x"],
-      y: data["y"],
-      path: data["path"],
-      timestamp: :os.system_time(:milli_seconds)
-    }
+  def handle_in("path:point-added", payload, socket) do
+    payload = add_broadcast_meta(payload, socket)
+
+    broadcast! socket, "path:point-added", payload
 
     {:noreply, socket}
   end
@@ -71,5 +60,15 @@ defmodule Draw.MainChannel do
     end
 
     {:noreply, socket}
+  end
+
+  defp add_broadcast_meta(payload, socket) do
+    Map.merge(
+      payload,
+      %{
+        user: socket.assigns.user,
+        timestamp: :os.system_time(:milli_seconds)
+      }
+    )
   end
 end
