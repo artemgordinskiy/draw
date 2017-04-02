@@ -3,7 +3,12 @@ defmodule Draw.NewDrawingController do
 
   alias Draw.{Drawing, Repo}
 
-  def index(conn, %{"drawing" => drawing_params}) do
+  def index(conn, _params) do
+    render conn, "index.html", changeset: Drawing.changeset(%Drawing{}),
+           action: "/new-drawing/submit"
+  end
+
+  def submit(conn, %{"drawing" => drawing_params}) do
     changeset = Drawing.changeset(%Drawing{}, drawing_params)
 
     case Repo.insert(changeset) do

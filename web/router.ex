@@ -20,7 +20,8 @@ defmodule Draw.Router do
 
     get "/drawing/:id", DrawingController, :index
 
-    post "/drawing/new", NewDrawingController, :index
+    get "/new-drawing", NewDrawingController, :index
+    post "/new-drawing/submit", NewDrawingController, :submit
   end
 
   # Other scopes may use custom stacks.

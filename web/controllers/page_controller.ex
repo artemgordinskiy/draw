@@ -5,6 +5,6 @@ defmodule Draw.PageController do
 
   def index(conn, _params) do
     render conn, "index.html", changeset: Drawing.changeset(%Drawing{}),
-           action: "/drawing/new"
+           action: "/new-drawing/submit"
   end
 end
